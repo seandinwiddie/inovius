@@ -1,0 +1,20 @@
+<!doctype html>
+<html ng-app="Module">
+  <head>
+    <script src="//code.angularjs.org/snapshot/angular.min.js"></script>
+    <script src="//code.angularjs.org/snapshot/angular-route.min.js"></script>
+    <script>
+      angular.element(document.getElementsByTagName('head'))
+        .append(angular.element('<base href="'+window.location.pathname+'">'));
+      angular.module('Module',['ngRoute'])
+        .config(function($routeProvider,$locationProvider){
+          $locationProvider.html5Mode(true);
+          $routeProvider.when('/',{templateUrl:'test.html'});});
+    </script>
+  </head>
+  <body>
+    <div>
+      <div ng-view></div>
+    </div>
+  </body>
+</html>

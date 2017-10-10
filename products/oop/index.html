@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, inital-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Inovius-OOP</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <style>
+      thead th,thead td{
+        border:none !important;
+      }
+      thead td{
+        letter-spacing:2px;
+        font-weight:bold;
+        font-size:150%;
+      }
+      td{
+        letter-spacing:1px;
+        font-size:110%;
+      }
+
+      .jumbotron{
+        padding-top:0;
+        line-height:200%;
+        background:white;
+      }
+      .table-bordered{
+        border:none;
+      }
+    </style>
+    <script>
+      $(document).ready(function(){
+        tier="ee";
+        clms="few";
+        $("#ee").click(function(){$("#tierDsply").text("Employee Only");tier="ee";});
+        $("#ee-spc").click(function(){$("#tierDsply").text("Employee & Spouse");tier="ee-spc";});
+        $("#ee-chld").click(function(){$("#tierDsply").text("Employee & Child");tier="ee-chld";});
+        $("#ee-fml").click(function(){$("#tierDsply").text("Employee & Family");tier="ee-fml";});
+        $("#none").click(function(){$("#clmsDsply").text("no");});
+        $("#few").click(function(){$("#clmsDsply").text("few");clms="few";});
+        $("#some").click(function(){$("#clmsDsply").text("some");clms="some";});
+        $("#many").click(function(){$("#clmsDsply").text("many");clms="many";});
+        $("#cstm").click(function(){$("#clmsDsply").text("a custom amount of");});
+        $("#ee,#ee-spc,#ee-chld,#ee-fml,#few,#some,#many").click(function(){
+          switch(true){
+
+            case tier=="ee"&&clms=="few":
+              $("#net1").text("$1,535");$("#net2").text("$2,533");$("#net3").text("$1,380");
+              $("#ac1").text("$1,260");$("#ac2").text("$2,160");$("#ac3").text("$0");
+              $("#mc1").text("$275");$("#mc2").text("$373");$("#mc3").text("$620");
+              $("#ha1").text("N/A");$("#ha2").text("N/A");$("#ha3").text("$2,000");
+              $("#hab1").text("");$("#hab2").text("");$("#hab3").text("$0");
+              break;
+            case tier=="ee"&&clms=="some":
+              $("#net1").text("$2,510");$("#net2").text("$3,308");$("#net3").text("$1,000");
+              $("#ac1").text("$1,260");$("#ac2").text("$2,160");$("#ac3").text("$0");
+              $("#mc1").text("$1,250");$("#mc2").text("$1,148");$("#mc3").text("$3,000");
+              $("#ha1").text("N/A");$("#ha2").text("N/A");$("#ha3").text("$2,000");
+              $("#hab1").text("");$("#hab2").text("");$("#hab3").text("$0");
+              break;
+            case tier=="ee"&&clms=="many":
+              $("#net1").text("$3,570");$("#net2").text("$4,238");$("#net3").text("$1,000");
+              $("#ac1").text("$1,260");$("#ac2").text("$2,160");$("#ac3").text("$0");
+              $("#mc1").text("$2,310");$("#mc2").text("$2,078");$("#mc3").text("$3,000");
+              $("#ha1").text("N/A");$("#ha2").text("N/A");$("#ha3").text("$2,000");
+              $("#hab1").text("");$("#hab2").text("");$("#hab3").text("$0");
+              break;
+
+            case tier=="ee-spc"&&clms=="few":
+              $("#net1").text("$5,950");$("#net2").text("$8,688");$("#net3").text("$3,000");
+              $("#ac1").text("$5,400");$("#ac2").text("$8,040");$("#ac3").text("$3,000");
+              $("#mc1").text("$550");$("#mc2").text("$648");$("#mc3").text("$1,240");
+              $("#ha1").text("N/A");$("#ha2").text("N/A");$("#ha3").text("$4,000");
+              $("#hab1").text("");$("#hab2").text("");$("#hab3").text("$2,760");
+              break;
+            case tier=="ee-spc"&&clms=="some":
+              $("#net1").text("$7,900");$("#net2").text("$10,238");$("#net3").text("$5,000");
+              $("#ac1").text("$5,400");$("#ac2").text("$8,040");$("#ac3").text("$3,000");
+              $("#mc1").text("$2,500");$("#mc2").text("$2,198");$("#mc3").text("$6,000");
+              $("#ha1").text("N/A");$("#ha2").text("N/A");$("#ha3").text("$4,000");
+              $("#hab1").text("");$("#hab2").text("");$("#hab3").text("$0");
+              break;
+            case tier=="ee-spc"&&clms=="many":
+              $("#net1").text("$10,020");$("#net2").text("$12,098");$("#net3").text("$5,000");
+              $("#ac1").text("$5,400");$("#ac2").text("$8,040");$("#ac3").text("$3,000");
+              $("#mc1").text("$4,620");$("#mc2").text("$4,058");$("#mc3").text("$6,000");
+              $("#ha1").text("N/A");$("#ha2").text("N/A");$("#ha3").text("$4,000");
+              $("#hab1").text("");$("#hab2").text("");$("#hab3").text("$0");
+              break;
+
+            case tier=="ee-chld"&&clms=="few":
+              $("#net1").text("$5,650");$("#net2").text("$8,088");$("#net3").text("$2,400");
+              $("#ac1").text("$5,100");$("#ac2").text("$7,440");$("#ac3").text("$3,000");
+              $("#mc1").text("$550");$("#mc2").text("$648");$("#mc3").text("$1,240");
+              $("#ha1").text("N/A");$("#ha2").text("N/A");$("#ha3").text("$4,000");
+              $("#hab1").text("");$("#hab2").text("");$("#hab3").text("$2,760");
+              break;
+            case tier=="ee-chld"&&clms=="some":
+              $("#net1").text("$7,600");$("#net2").text("$9,638");$("#net3").text("$4,400");
+              $("#ac1").text("$5,100");$("#ac2").text("$7,440");$("#ac3").text("$2,400");
+              $("#mc1").text("$2,500");$("#mc2").text("$2,198");$("#mc3").text("$6,000");
+              $("#ha1").text("N/A");$("#ha2").text("N/A");$("#ha3").text("$4,000");
+              $("#hab1").text("");$("#hab2").text("");$("#hab3").text("$0");
+              break;
+            case tier=="ee-chld"&&clms=="many":
+              $("#net1").text("$9,720");$("#net2").text("$11,498");$("#net3").text("$4,400");
+              $("#ac1").text("$5,100");$("#ac2").text("$7,440");$("#ac3").text("$2,400");
+              $("#mc1").text("$4,620");$("#mc2").text("$4,058");$("#mc3").text("$6,000");
+              $("#ha1").text("N/A");$("#ha2").text("N/A");$("#ha3").text("$4,000");
+              $("#hab1").text("");$("#hab2").text("");$("#hab3").text("$0");
+              break;
+
+            case tier=="ee-fml"&&clms=="few":
+              $("#net1").text("$9,825");$("#net2").text("$12,683");$("#net3").text("$5,400");
+              $("#ac1").text("$9,000");$("#ac2").text("$11,760");$("#ac3").text("$5,400");
+              $("#mc1").text("$825");$("#mc2").text("$923");$("#mc3").text("$1,860");
+              $("#ha1").text("N/A");$("#ha2").text("N/A");$("#ha3").text("$4,000");
+              $("#hab1").text("");$("#hab2").text("");$("#hab3").text("$2,140");
+              break;
+            case tier=="ee-fml"&&clms=="some":
+              $("#net1").text("$12,750");$("#net2").text("$14,808");$("#net3").text("$7,400");
+              $("#ac1").text("$9,000");$("#ac2").text("$11,760");$("#ac3").text("$5,400");
+              $("#mc1").text("$3,750");$("#mc2").text("$3,048");$("#mc3").text("$6,000");
+              $("#ha1").text("N/A");$("#ha2").text("N/A");$("#ha3").text("$4,000");
+              $("#hab1").text("");$("#hab2").text("");$("#hab3").text("$0");
+              break;
+            case tier=="ee-fml"&&clms=="many":
+              $("#net1").text("$15,930");$("#net2").text("$17,598");$("#net3").text("$7,400");
+              $("#ac1").text("$9,000");$("#ac2").text("$11,760");$("#ac3").text("$5,400");
+              $("#mc1").text("$6,930");$("#mc2").text("$5,838");$("#mc3").text("$6,000");
+              $("#ha1").text("N/A");$("#ha2").text("N/A");$("#ha3").text("$4,000");
+              $("#hab1").text("");$("#hab2").text("");$("#hab3").text("$0");
+              break;
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="jumbotron">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-6">
+            <h2 style="margin-bottom:0;margin-left:10%;"><em>Interactive</em></h2>
+            <h1 style="margin-top:0;">Out of Pocket</h1>
+            <h1>Comparison</h1>
+          </div>
+
+          <div class="col-md-6" style="margin-top:12%;">
+
+            <div class="col-md-6">
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
+                  Coverage Tier <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#" id="ee">Employee Only</a></li>
+                  <li><a href="#" id="ee-spc">Employee & Spouse</a></li>
+                  <li><a href="#" id="ee-chld">Employee & Child</a></li>
+                  <li><a href="#" id="ee-fml">Employee & Family</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
+                  Projected Claims <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#" id="none">None</a></li>
+                  <li><a href="#" id="few">Few</a></li>
+                  <li><a href="#" id="some">Some</a></li>
+                  <li><a href="#" id="many">Many</a></li>
+                  <li><a href="#" id="cstm">Custom</a></li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="row">
+
+        </div>
+
+        <div class="row" style="margin-top:8%;">
+          <div class="col-md-12">
+            <p>You are viewing <span id="tierDsply">Employee Only</span> with <span id="clmsDsply">few</span> claims.</p>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Anthem HMO 30</th>
+                  <th>Anthem PPO 250</th>
+                  <th>Anthem HSA 3000</th>
+                </tr>
+                <tr>
+                  <th>Net Expenses</th>
+                  <td id="net1">$1,535</td>
+                  <td id="net2">$2,533</td>
+                  <td id="net3">$1,380</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>Annual Cost</th>
+                  <td id="ac1">$1,260</td>
+                  <td id="ac2">$2,160</td>
+                  <td id="ac3">$0</td>
+                </tr>
+                <tr>
+                  <th>+ Medical Costs</th>
+                  <td id="mc1">$275</td>
+                  <td id="mc2">$373</td>
+                  <td id="mc3">$620</td>
+                </tr>
+                <tr>
+                  <th>- HRA or HSA</th>
+                  <td id="ha1">N/A</td>
+                  <td id="ha2">N/A</td>
+                  <td id="ha3">$2,000</td>
+                </tr>
+                <tr>
+                  <th>HRA - HSA Balance</th>
+                  <td id="hab1"></td>
+                  <td id="hab2"></td>
+                  <td id="hab3">$0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--<div class="col-xs-offset-1">
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" style="width:60%;"></div>
+          </div>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width:90%;"></div>
+          </div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-info" role="progressbar" style="width:30%;"></div>
+          </div>
+        </div>-->
+
+      </div>
+    </div>
+  </body>
+</html>

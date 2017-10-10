@@ -1,0 +1,342 @@
+<!doctype html>
+<head>
+
+  <title>HSA Toolkit</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+  <link rel="shortcut icon" href="http://inovius.com/favicon.ico">
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+
+
+      // top of HSA Contribution Calculator
+      $("input").click(function(){
+        switch(true){
+          case $("input[name='txYr']:checked").val()=="2013"
+            &&$("input[name='cvrgTr']:checked").val()=="Individual":amnt=3250.00;break;
+          case $("input[name='txYr']:checked").val()=="2013"
+            &&$("input[name='cvrgTr']:checked").val()=="Family":amnt=6450.00;break;
+          case $("input[name='txYr']:checked").val()=="2014"
+            &&$("input[name='cvrgTr']:checked").val()=="Individual":amnt=3300.00;break;
+          case $("input[name='txYr']:checked").val()=="2014"
+            &&$("input[name='cvrgTr']:checked").val()=="Family":amnt=6550.00;break;
+        }
+        switch(true){
+          case $("#fftyFvPls").val()=="yes":amnt=amnt+1000.00;break;
+        }
+        $("#erCntrbtn").attr("max",function(){
+          return amnt;
+        });
+        amnt=(amnt-$("#erCntrbtn").val()).toFixed(2);
+        amnt=new Intl.NumberFormat("en-IN",{style:"currency",currency:"USD",minimumFractionDigits:2}).format(amnt);
+        document.getElementById("amnt").innerHTML=amnt;
+        $("#erCntrbtn").slider("refresh");
+      });
+      $("#fftyFvPls").change(function(){
+        switch(true){
+          case $("input[name='txYr']:checked").val()=="2013"
+            &&$("input[name='cvrgTr']:checked").val()=="Individual":amnt=3250.00;break;
+          case $("input[name='txYr']:checked").val()=="2013"
+            &&$("input[name='cvrgTr']:checked").val()=="Family":amnt=6450.00;break;
+          case $("input[name='txYr']:checked").val()=="2014"
+            &&$("input[name='cvrgTr']:checked").val()=="Individual":amnt=3300.00;break;
+          case $("input[name='txYr']:checked").val()=="2014"
+            &&$("input[name='cvrgTr']:checked").val()=="Family":amnt=6550.00;break;
+        }
+        switch(true){
+          case $("#fftyFvPls").val()=="yes":amnt=amnt+1000.00;break;
+        }
+        $("#erCntrbtn").attr("max",function(){
+          return amnt;
+        });
+        amnt=(amnt-$("#erCntrbtn").val()).toFixed(2);
+        amnt=new Intl.NumberFormat("en-IN",{style:"currency",currency:"USD",minimumFractionDigits:2}).format(amnt);
+        document.getElementById("amnt").innerHTML=amnt;
+        $("#erCntrbtn").slider("refresh");
+      });
+      $("#erCntrbtn").change(function(){
+        switch(true){
+          case $("input[name='txYr']:checked").val()=="2013"
+            &&$("input[name='cvrgTr']:checked").val()=="Individual":amnt=3250.00;break;
+          case $("input[name='txYr']:checked").val()=="2013"
+            &&$("input[name='cvrgTr']:checked").val()=="Family":amnt=6450.00;break;
+          case $("input[name='txYr']:checked").val()=="2014"
+            &&$("input[name='cvrgTr']:checked").val()=="Individual":amnt=3300.00;break;
+          case $("input[name='txYr']:checked").val()=="2014"
+            &&$("input[name='cvrgTr']:checked").val()=="Family":amnt=6550.00;break;
+        }
+        switch(true){
+          case $("#fftyFvPls").val()=="yes":amnt=amnt+1000.00;break;
+        }
+        $("#erCntrbtn").attr("max",function(){
+          return amnt;
+        });
+        amnt=(amnt-$("#erCntrbtn").val()).toFixed(2);
+        amnt=new Intl.NumberFormat("en-IN",{style:"currency",currency:"USD",minimumFractionDigits:2}).format(amnt);
+        document.getElementById("amnt").innerHTML=amnt;
+      });
+      $("#erCntrbtnAdd").click(function(){
+        $("#erCntrbtn").attr("step",function(){return 25.00;});
+        $("#erCntrbtn").val(parseFloat($("#erCntrbtn").val())+25.00);
+        $("#erCntrbtn").slider("refresh");
+        $("#erCntrbtn").attr("step",function(){return 100.00;});
+      });
+      $("#erCntrbtnSbtrct").click(function(){
+        $("#erCntrbtn").attr("step",function(){return 25.00;});
+        $("#erCntrbtn").val(parseFloat($("#erCntrbtn").val())-25.00);
+        $("#erCntrbtn").slider("refresh");
+        $("#erCntrbtn").attr("step",function(){return 100.00;});
+      });
+      $("#erCntrbtn").keydown(function(){
+        $("#erCntrbtn").attr("step",function(){return 0.01;});
+      });
+      $("#erCntrbtn").blur(function(){
+        $("#erCntrbtn").attr("step",function(){return 100.00;});
+      });
+      // bottom of HSA Contribution Calculator
+
+
+    });
+  </script>
+
+  <style>
+    h4,p{
+      margin:3% 0 1%;
+    }
+  </style>
+
+</head>
+<body style="background:#ccc;background-image: linear-gradient(#ddd,#ccc);">
+
+  <div data-role="page" id="cntrbtn" data-theme="b">
+
+
+    <!--- top of HSA Contribution Calculator --->
+    <div
+      data-role="content"
+      data-theme="c"
+      style="
+        margin:2% auto;
+        width:90%;
+        max-width:900px;
+        text-align:center;
+        font-size:125%;
+        box-shadow:0 0 5px;
+      "
+    >
+      <h3 style="color:DimGray;">HSA Contribution Calculator</h3>
+      <div class="ui-body-d" style="margin:auto;border-radius:5px;width:90%;padding:10px;">
+        <h4>Your Max Contribution:</h4>
+        <h2 class="ui-body-e" style="margin:auto;border-radius:3px;width:60%;padding:18px">
+          <span id="amnt">$3,250.00</span>
+        </h2>
+        <fieldset data-role="controlgroup" data-type="horizontal">
+          <p>Tax Year:</p>
+          <input type="radio" name="txYr" id="2013" value="2013" data-theme="b" checked="checked">
+          <label for="2013">2013</label>
+          <input type="radio" name="txYr" id="2014" value="2014" data-theme="b">
+          <label for="2014">2014</label>
+        </fieldset>
+        <fieldset data-role="controlgroup" data-type="horizontal">
+          <p>Coverage Tier:</p>
+          <input type="radio" name="cvrgTr" id="indvdl" value="Individual" data-theme="b" checked="checked">
+          <label for="indvdl">Individual</label>
+          <input type="radio" name="cvrgTr" id="fmly" value="Family" data-theme="b">
+          <label for="fmly">Family</label>
+        </fieldset>
+        <p>Age 55+:</p>
+        <select name="fftyFvPls" id="fftyFvPls" data-role="slider" data-theme="b">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+        <div class="ui-grid-a">
+          <div class="ui-block-a" style="margin:0 2% 0 7%;width:80%;">
+            <p>Employer Contribution:</p>
+            <input
+              type="range"
+              name="erCntrbtn"
+              id="erCntrbtn"
+              value="0.00"
+              min="0.00"
+              max="3250.00"
+              step="100.00"
+              data-highlight="true"
+              data-theme="b"
+              data-track-theme="d"
+              style="margin-left:-15px;width:55px;"
+            >
+          </div>
+          <div class="ui-block-b" style="margin-top:4%;width:11%;">
+            <div data-role="controlgroup" data-mini="true">
+              <a href="#" id="erCntrbtnAdd" data-role="button" data-theme="b" data-icon="plus" data-iconpos="notext">
+                more
+              </a>
+              <a href="#"  id="erCntrbtnSbtrct" data-role="button" data-theme="b" data-icon="minus" data-iconpos="notext">
+                less
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-role="controlgroup" data-type="horizontal" data-mini="true">
+        <a
+          href="#prvs"
+          data-role="button"
+          data-icon="arrow-l"
+          data-iconpos="left"
+          data-inline="true"
+          data-theme="d"
+          data-transition="fade"
+        >
+          Previous
+        </a>
+        <a
+          href="#"
+          data-role="button"
+          data-inline="true"
+          data-theme="d"
+          data-transition="fade"
+        >
+          Tool Center
+        </a>
+        <a
+          href="#nxt"
+          data-role="button"
+          data-icon="arrow-r"
+          data-iconpos="right"
+          data-inline="true"
+          data-theme="d"
+          data-transition="slidefade"
+        >
+          Next
+        </a>
+      </div>
+    </div>
+    <!--- bottom of HSA Contribution Calculator --->
+
+
+  </div>
+
+  <div data-role="page" id="nxt" data-theme="b">
+
+
+    <!--- top of HSA Future Cost Calculator --->
+    <div
+      data-role="content"
+      data-theme="c"
+      style="
+        margin:2% auto;
+        width:90%;
+        max-width:900px;
+        text-align:center;
+        font-size:125%;
+        box-shadow:0 0 5px;
+      "
+    >
+      <h3 style="color:DimGray;">HSA Future Cost Calculator</h3>
+      <div class="ui-body-d" style="margin:auto;border-radius:5px;width:90%;padding:10px;">
+        foo
+      </div>
+      <div data-role="controlgroup" data-type="horizontal" data-mini="true">
+        <a
+          href="#cntrbtn"
+          data-role="button"
+          data-icon="arrow-l"
+          data-iconpos="left"
+          data-inline="true"
+          data-theme="d"
+          data-transition="fade"
+        >
+          Previous
+        </a>
+        <a
+          href="#"
+          data-role="button"
+          data-inline="true"
+          data-theme="d"
+          data-transition="fade"
+        >
+          Tool Center
+        </a>
+        <a
+          href="#"
+          data-role="button"
+          data-icon="arrow-r"
+          data-iconpos="right"
+          data-inline="true"
+          data-theme="d"
+          data-transition="fade"
+        >
+          Next
+        </a>
+      </div>
+    </div>
+    <!--- bottom of HSA Future Cost Calculator --->
+
+
+  </div>
+
+  <div data-role="page" id="prvs" data-theme="b">
+
+
+    <!--- top of HSA Future Balance Calculator --->
+    <div
+      data-role="content"
+      data-theme="c"
+      style="
+        margin:2% auto;
+        width:90%;
+        max-width:900px;
+        text-align:center;
+        font-size:125%;
+        box-shadow:0 0 5px;
+      "
+    >
+      <h3 style="color:DimGray;">HSA Future Balance Calculator</h3>
+      <div class="ui-body-d" style="margin:auto;border-radius:5px;width:90%;padding:10px;">
+        foo
+      </div>
+      <div data-role="controlgroup" data-type="horizontal" data-mini="true">
+        <a
+          href="#"
+          data-role="button"
+          data-icon="arrow-l"
+          data-iconpos="left"
+          data-inline="true"
+          data-theme="d"
+          data-transition="fade"
+        >
+          Previous
+        </a>
+        <a
+          href="#"
+          data-role="button"
+          data-inline="true"
+          data-theme="d"
+          data-transition="fade"
+        >
+          Tool Center
+        </a>
+        <a
+          href="#cntrbtn"
+          data-role="button"
+          data-icon="arrow-r"
+          data-iconpos="right"
+          data-inline="true"
+          data-theme="d"
+          data-transition="slidefade"
+        >
+          Next
+        </a>
+      </div>
+    </div>
+    <!--- bottom of HSA Future Balance Calculator --->
+
+
+  </div>
+
+</body>

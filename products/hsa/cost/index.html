@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>HSA Future Cost</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <script src="autoNumeric.js"></script>
+    <script>
+      $(function(){
+        $("#tppt,#hppt").attr("type","text");
+        $("#tpmp,#hpmp,#mhc").autoNumeric("init",{aSign:"$"});
+        $("#tppt,#hppt").autoNumeric("init",{aSign:"%",pSign:"s",vMin:"-99.0",vMax:"99.9"});
+      });
+      function clclt(){
+        tpp=$("#tpmp").autoNumeric("get")*12;tpt=$("#tppt").autoNumeric("get")/100;
+        hpp=$("#hpmp").autoNumeric("get")*12;hpt=$("#hppt").autoNumeric("get")/100;
+        yr=$("#yrs").val();hc=($("#mhc").autoNumeric("get")*12)*yr;
+        if(tpt==0){tpp=tpp*yr;}else{tpp=tpp*((Math.pow(1+tpt,yr)-1)/tpt);}
+        if(hpt==0){hpp=(hpp*yr)+hc;}else{hpp=(hpp*((Math.pow(1+hpt,yr)-1)/hpt))+hc;}
+        svng="$"+(tpp-hpp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,"$1,");
+        $("#svngs").text(svng);
+        svngLstYr=Math.round(((($("#tpmp").autoNumeric("get")*12)*(Math.pow((1+tpt),$("#yrs").val())))*1.17));
+        $("#lbl,#grid,#bars").empty();while(yr>0){
+          brHght=100/yr;brMrgnLft=(10/$("#yrs").val())*yr;
+          $("#bars").append(
+            //"<div style='position:absolute;bottom:0;right:"+brLft+"%;margin:auto;height:"+brHght+"%;width:20px;background:lightblue;'></div>"
+            "<div style='float:left;margin-left:"+brMrgnLft+"%;height:100%;width:40px;'>\
+              <div style='float:left;height:"+brHght+"%;width:20px;background:lightblue;'></div>\
+              <div style='float:left;height:"+brHght+"%;width:20px;background:orange;'></div>\
+            </div>"
+          );yr--;
+        }
+        switch(true){
+          case svngLstYr>10000000:ratio=1000000;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>2000000:ratio=500000;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>1000000:ratio=200000;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>500000:ratio=100000;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>200000:ratio=50000;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>100000:ratio=20000;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>50000:ratio=10000;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>20000:ratio=5000;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>10000:ratio=2000;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>5000:ratio=1000;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>2000:ratio=500;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>1000:ratio=200;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>500:ratio=100;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>250:ratio=50;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>50:ratio=10;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>25:ratio=5;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+          case svngLstYr>10:ratio=2;svngLstYr=Math.floor(svngLstYr/ratio)*ratio;break;
+        }
+        rows=(svngLstYr/ratio)+1;grdhght=(100/rows);llblMrgnTp=(729/rows);
+        while(rows>0){
+          if(rows<((svngLstYr/ratio)+1)){svngLstYrP=svngLstYrP-ratio;}else{svngLstYrP=svngLstYr;}rows--;svngLstYrPS=svngLstYrP;
+          svngLstYrPS="$"+svngLstYrPS.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,"$1,");svngLstYrPS=svngLstYrPS.substring(0,svngLstYrPS.length-3);
+          $("#lbl").append("<div style='margin-top:"+llblMrgnTp+"%;text-align:right;'>"+svngLstYrPS+"</div>");
+          $("#grid").append("<div style='border-color:#aaa;border-width:1px;border-style:none none solid solid;height:"+grdhght+"%;width:100%;'>\
+            <div style='border-bottom:1px solid #eee;height:33%;'></div>\
+            <div style='border-bottom:1px solid #eee;height:33%;'></div>\
+          </div>");
+        }
+        $("#tppt,#hppt").autoNumeric("update",{aSign:"%",pSign:"s",vMin:"-99.0",vMax:"99.9"});
+      }
+      $(document).ready(function(){clclt();$("input").change(function(){clclt();});});
+      function tpmpUp(){$("#tpmp").autoNumeric("set",parseInt($("#tpmp").autoNumeric("get"))+1);clclt();}
+      function tpmpDwn(){$("#tpmp").autoNumeric("set",parseInt($("#tpmp").autoNumeric("get"))-1);clclt();}
+      function hpmpUp(){$("#hpmp").autoNumeric("set",parseInt($("#hpmp").autoNumeric("get"))+1);clclt();}
+      function hpmpDwn(){$("#hpmp").autoNumeric("set",parseInt($("#hpmp").autoNumeric("get"))-1);clclt();}
+      function mhcUp(){$("#mhc").autoNumeric("set",parseInt($("#mhc").autoNumeric("get"))+1);clclt();}
+      function mhcDwn(){$("#mhc").autoNumeric("set",parseInt($("#mhc").autoNumeric("get"))-1);clclt();}
+      function yrsUp(){$("#yrs").val(parseInt($("#yrs").val())+1);clclt();}
+      function yrsDwn(){if($("#yrs").val()>2){$("#yrs").val(parseInt($("#yrs").val())-1);clclt();}}
+    </script>
+  </head>
+  <body>
+    <div class="ui-grid-a" id="plt">
+      <div class="ui-block-a" style="width:25%;">
+        <div class="dsh">
+          <p>Traditional Plan</p>
+          <p>Monthly Premium</p>
+          <input class="dllr" id="tpmp" value="858">
+          <div class="swtch" data-role="controlgroup">
+            <a data-role="button" onclick="tpmpUp()">&#9650;</a><a data-role="button" onclick="tpmpDwn()">&#9660;</a>
+          </div>
+          <p>Traditional Plan</p>
+          <p>Premium Trend</p>
+          <input id="tppt" type="range" min="0.0" max="30.0" value="12.0"><br><br>
+        </div>
+        <div class="dsh">
+          <p>HSA-Eligible Plan</p>
+          <p>Monthly Premium</p>
+          <input class="dllr" id="hpmp" value="357">
+          <div class="swtch" data-role="controlgroup">
+            <a data-role="button" onclick="hpmpUp()">&#9650;</a><a data-role="button" onclick="hpmpDwn()">&#9660;</a>
+          </div>
+          <p>Monthly HSA Contributions</p>
+          <input class="dllr" id="mhc" value="0.00">
+          <div class="swtch" data-role="controlgroup">
+            <a data-role="button" onclick="mhcUp()">&#9650;</a><a data-role="button" onclick="mhcDwn()">&#9660;</a>
+          </div>
+          <p>HSA-Eligible Plan</p>
+          <p>Premium Trend</p>
+          <input id="hppt" type="range" min="0.0" max="30.0" value="4.0"><br><br>
+        </div>
+        <div class="dsh">
+          <p>Projected Savings</p>
+          <p>of HSA-Eligible</p>
+          <p>Plan over</p>
+          <div class="ui-grid-b">
+            <div class="ui-block-a"></div>
+            <div class="ui-block-b">
+              <input id="yrs" style="width:50% !important;" value="7">
+              <div class="swtch" data-role="controlgroup">
+                <a data-role="button" onclick="yrsUp()">&#9650;</a><a data-role="button" onclick="yrsDwn()">&#9660;</a>
+              </div>
+            </div>
+            <div class="ui-block-c">
+              <p style="margin-top:15%;">Years</p>
+            </div>
+          </div>
+          <p id="svngs">$0</p>
+        </div>
+      </div>
+      <div class="ui-block-b" style="width:75%;">
+        <div class="dsh">
+          <div id="chrt">
+            <div id="lbl">.</div>
+            <div id="grph">
+              <div id="grid">foo</div>
+              <div id="bars">foo</div>
+            </div>
+            <div id="lgnd">
+              <div style="display:inline-block;height:10px;width:10px;color:lightblue;background:lightblue;">.</div> Traditional Plan
+              <div style="display:inline-block;height:10px;width:10px;color:orange;background:orange;">.</div> HSA-Eligible Plan
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

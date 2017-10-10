@@ -1,0 +1,234 @@
+<!-- God is good -->
+<!doctype html>
+<html ng-app="appModule" ng-controller="Controller">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>Inovius</title>
+    <link rel="stylesheet" href="index.css">
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    <script src="//code.angularjs.org/snapshot/angular.min.js"></script>
+    <script src="index.js"></script>
+    <style>
+      #MeterHSA.Meter:before{
+        transform:rotate({{AnnualTaxSavingsGauge}}deg);
+        -webkit-transform:rotate({{AnnualTaxSavingsGauge}}deg);}
+      #MeterPlan0.Meter:before{
+        transform:rotate({{Plan[0].Gauge}}deg);
+        -webkit-transform:rotate({{Plan[0].Gauge}}deg);}
+      #MeterPlan1.Meter:before{
+        transform:rotate({{Plan[1].Gauge}}deg);
+        -webkit-transform:rotate({{Plan[1].Gauge}}deg);}
+    </style>
+    <script></script>
+  </head>
+  <body>
+    <div id="Main">
+      <div id="MainContent" class="Plate">
+        <!--Top Menu-->
+        <div class="ColumnWhole" style="height:100%;">
+          <div class="ColumnFourth" style="color:rgba(0,0,0,0);text-shadow:none;">*</div>
+          <div class="ColumnHalf">
+            <span class="h1" style="color:Navy;">
+              Interact<span style="color:DarkOrange;">i</span>ve Enrollment Comparison
+            </span>
+          </div>
+          <div class="ColumnFourth">
+            <button ng-click="ViewInstructions=!ViewInstructions">View Instructions</button>
+          </div>
+          <div class="Dish" style="height:87%;">
+            <div class="ColumnWhole">
+              <div class="ColumnThird Plate">
+                <span class="h3">Your Coverage Type:</span>
+                <div class="SelectOuter">
+                  <select ng-model="Tier" ng-change="
+                    ERContributionTier();
+                    Contribution();
+                    RateTiers();
+                    Plan[0].oopComparison();
+                    Plan[1].oopComparison();
+                    Plan[0].Cost();
+                    Plan[1].Cost()">
+                    <option ng-repeat="Tier in Tiers">{{Tier}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="ColumnThird Plate">
+                <span class="h3">Comparison Plan 1:</span>
+                <div class="SelectOuter">
+                  <select ng-model="Plan[0].Plan" ng-change="Plan[0].oopComparison();Plan[0].Cost();">
+                    <option ng-repeat="Plan0 in Plans.planName">{{Plan0}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="ColumnThird Plate">
+                <span class="h3">Comparison Plan 2:</span>
+                <div class="SelectOuter">
+                  <select ng-model="Plan[1].Plan" ng-change="Plan[1].oopComparison();Plan[1].Cost();">
+                    <option ng-repeat="Plan1 in Plans.planName">{{Plan1}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!--Left Column-->
+            <div class="ColumnHalf Plate" style="height:77%;">
+              <div>
+                <button
+                  ng-click="MedicalCosts=true;HSATaxSavings=false"
+                  ng-class="{ButtonSquareHalfActive:MedicalCosts,ButtonSquareHalf:HSATaxSavings}">
+                  Medical Costs
+                </button>
+                <button
+                  ng-click="HSATaxSavings=true;MedicalCosts=false"
+                  ng-class="{ButtonSquareHalf:MedicalCosts,ButtonSquareHalfActive:HSATaxSavings}">
+                  HSA Tax Savings
+                </button>
+              </div>
+              <div class="Dish" style="height:90%;">
+                <!--Medical Costs-->
+                <div ng-show="MedicalCosts" id="MedicalCosts">
+                  <div class="ColumnWhole" style="text-align:left;">
+                    <div class="h2 ColumnHalf">Claims Scenario:</div>
+                    <div class="SelectOuter ColumnHalf">
+                      <select ng-model="Scenario" ng-change="Plan[0].Cost();Plan[1].Cost();">
+                        <option ng-repeat="Scenario in Keys(Scenarios)">{{Scenario}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="ColumnWhole" style="border-bottom:2px solid Black;">
+                    <div class="ColumnHalf" style="color:rgba(0,0,0,0);text-shadow:none;">*</div>
+                    <div class="ColumnFourth">Cost ($)</div>
+                    <div class="ColumnFourth">Frequency</div>
+                  </div>
+                  <div class="ColumnWhole">
+                    <div class="ColumnHalf">
+                      <ul>
+                        <li ng-repeat="Service in Keys(Services)">{{Service.substring(3)}}</li>
+                      </ul>
+                    </div>
+                    <div class="ColumnFourth">
+                      <ul>
+                        <li ng-repeat="(Service,Cost) in Services">
+                          <input ng-model="Services[Service]"
+                            format="number:2"
+                            ng-value="Services[Service]|currencyInt"
+                            ng-disabled="Scenario=='Custom'?false:true"
+                            ng-change="Plan[0].Cost();Plan[1].Cost();"
+                            style="width:100px;">
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="ColumnFourth">
+                      <ul>
+                        <li ng-repeat="Frequency in Scenarios[Scenario] track by $index">
+                          <input
+                            ng-model="Scenarios[Scenario][$index]"
+                            ng-disabled="Scenario=='Custom'?false:true"
+                            ng-change="Plan[0].Cost();Plan[1].Cost();"
+                            style="width:50px;">
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="ColumnWhole Note" style="border-top:2px solid Black;text-align:left;">Note: Medical costs shown in the above scenarios are estimates. Your claims cost and frequency may vary. For specific medical costs select Custom Claims Scenario.</div>
+                </div>
+                <!--HSA Tax Savings-->
+                <div ng-show="HSATaxSavings">
+                  <div class="ColumnHalf">
+                    <div>Employer Contribution</div>
+                    <input ng-value="ERContribution|currency" disabled>
+                  </div>
+                  <div class="ColumnHalf">
+                    <div>Your Contribution</div>
+                    <input
+                      id="EEContribution"
+                      ng-model="EEContribution"
+                      format="number:2"
+                      style="text-align:left;"
+                      ng-change="
+                        Contribution();
+                        TaxSavings();
+                        Plan[0].oopComparison();
+                        Plan[1].oopComparison();
+                        Plan[0].Cost();
+                        Plan[1].Cost();">
+                  </div>
+                  <div>
+                    <div>Total HSA Contributions</div>
+                    <input ng-value="TotalContribution|currency" disabled>
+                  </div>
+                  <div class="ColumnHalf">
+                    <div>Federal Tax</div>
+                    <input type="range" ng-model="TaxFederal" ng-change="TaxSavings()">
+                    <div>{{TaxFederal}}%</div>
+                  </div>
+                  <div class="ColumnHalf">
+                    <div>State Tax*</div>
+                    <input type="range" ng-model="TaxState" ng-change="TaxSavings()">
+                    <div>{{TaxState}}%</div>
+                  </div>
+                  <div>
+                    <div>Annual Tax Savings</div>
+                    <div id="MeterHSA" class="Meter"></div>
+                    <input ng-value="AnnualTaxSavings|currency" disabled>
+                  </div>
+                  <div class="ColumnWhole Note" style="border-top:2px solid Black;text-align:left;">*Note: Certain States do not follow Federal Guidelines and continue to tax HSA contributions.</div>
+                </div>
+              </div>
+            </div>
+            <!--Right Column-->
+            <div class="ColumnHalf Plate" style="height:77%;">
+              <div class="h2">Employee Out-of-Pocket Comparison</div>
+              <div id="oopComparison" class="Dish" style="height:90%;">
+                <div class="ColumnThird">
+                  <ul>
+                    <li><img width="25%" src="spread_sheet_128.png"></li>
+                    <li ng-repeat="Label in DATA.ClcltnLbls">{{Label}}</li>
+                  </ul>
+                </div>
+                <div class="ColumnThird">
+                  <ul>
+                    <li ng-repeat="Calculation0 in Plan[0].Calculations track by $index">
+                      {{Calculation0|currencyInt}}</li>
+                    <li id="MeterPlan0" class="Meter"></li>
+                  </ul>
+                </div>
+                <div class="ColumnThird">
+                  <ul>
+                    <li ng-repeat="Calculation1 in Plan[1].Calculations track by $index">
+                      {{Calculation1|currencyInt}}</li>
+                    <li id="MeterPlan1" class="Meter"></li>
+                  </ul>
+                </div>
+                <div class="ColumnWhole Note" style="border-top:2px solid Black;text-align:left;">Note: Medical costs shown in the above scenarios are estimates. Your claims cost and frequency may vary.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Instructions-->
+    <div ng-show="ViewInstructions" class="PopUp" ng-click="ViewInstructions=!ViewInstructions">
+      <div class="PopUpContent">
+        <div>This tool is provided to assist you in deciding which medical plan is best suited for your needs</div>
+        <br>
+        <div>Step 1. Choose your coverage type.</div>
+        <div>Step 2. Choose a claims scenario.</div>
+        <div>Step 3. Choose a comparison plan 1.</div>
+        <div>Step 4. Choose a comparison plan 2.</div>
+        <br>
+        <div>Annual Cost represents how much you will pay annually for that plan.</div>
+        <br>
+        <div>Medical Costs represents the estimated cost of service based on the selected Claims Scenario.</div>
+        <br>
+        <div>HSA represents the amount your employer is funding annually into your HSA, which you can use to offset your medical expenses</div>
+        <br>
+        <div>Net Expenses represents your net out-of-pocket expenses based on the selected scenario.</div>
+        <br>
+        <div>HSA Balance represents the balance remaining in your HSA (if any) based on the selected scenario.</div>
+        <br>
+        <div>HSA Tax Savings represents the amount from your HSA Contributions. Tax Savings does not include any Employer HSA Contributions. To calculate Total HSA Contributions, enter any Employer Contributions as well as your HSA Contributions. Next, enter your Federal Tax Bracket, and State Tax Bracket (some states continue to tax HSA contributions).</div>
+      </div>
+    </div>
+  </body>
+</html>

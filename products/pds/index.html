@@ -1,0 +1,254 @@
+<!doctype html>
+<head>
+  <title>Inovius-PDS</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+  <link rel="stylesheet" href="jquery.mobile-1.3.1.css">
+  <link rel="shortcut icon" href="http://inovius.com/favicon.ico">
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".ui-controlgroup-controls .ui-select").css("width","100%");
+      $("#hh").change(function(){
+        hh=$("#hh").val();
+        switch(true){
+          case hh==1:w=100;$(".ui-controlgroup-controls .ui-select").css("width",+w+"%");break;
+          case hh==2:w=50;$(".ui-controlgroup-controls .ui-select").css("width",+w+"%");$("#aged2").show();break;
+          case hh==3:w=33;$(".ui-controlgroup-controls .ui-select").css("width",+w+"%");break;
+          case hh==4:w=25;$(".ui-controlgroup-controls .ui-select").css("width",+w+"%");break;
+          case hh==5:w=20;$(".ui-controlgroup-controls .ui-select").css("width",+w+"%");break;
+          case hh==6:w=16.66;$(".ui-controlgroup-controls .ui-select").css("width",+w+"%");break;
+          case hh==7:w=14.28;$(".ui-controlgroup-controls .ui-select").css("width",+w+"%");break;
+          case hh==8:w=12.5;$(".ui-controlgroup-controls .ui-select").css("width",+w+"%");break;
+        }
+        if(hh>2){$(".ui-header .ui-last-child").removeClass("ui-last-child");}
+        else if(hh>1){$(".ui-header .ui-last-child").removeClass("ui-last-child");}
+        else{$(".ui-header .ui-first-child").addClass("ui-last-child");}
+      });
+    });
+  </script>
+  <style>
+    html,
+    body{
+      height:100% !important;
+      width:100%;
+    }
+    *{
+      margin:0;
+      padding:0;
+      border:0;
+      font-family:sans-serif;
+    }
+
+    .ui-page{
+      height:100%;
+      width:100%;
+      text-align:center;
+      background:ivory;
+      box-shadow:inset 0 -100px 500px 100px ghostwhite;
+    }
+    .ui-header{
+      padding:2% 2% 1%;
+      background:rgba(255,200,0,0.75);
+    }
+    .ui-controlgroup{width:78%;}
+    .ui-controlgroup-controls{width:100% !important;}
+    .ui-li-divider{text-align:center;}
+    .ui-li-static.ui-li{padding:6% 4%;}
+    .ui-li-count{font-size:100% !important;}
+    .ui-footer{
+      position:fixed;
+      bottom:0;
+      width:100%;
+      background:rgba(255,200,0,0.75);
+    }
+
+    #prfl{
+      margin:auto;
+      width:90%;
+      text-align:left;
+    }
+    .plcy{
+      float:left;
+      margin:0 0.5% 1%;
+      width:19%;
+    }
+  </style>
+</head>
+<body>
+  <div data-role="page">
+    <div data-role="header" data-theme="d">
+      <div id="prfl">
+        <h1 style="text-align:center;">My Profile</h1>
+        <form>
+          <div data-role="fieldcontain">
+            <label for="hh">Number of Applicants:</label>
+            <input type="range" name="hh" id="hh" data-highlight="true" value="1" min="1" max="8">
+          </div>
+          <div data-role="fieldcontain">
+            <label for="age1" style="display:inline-block;">Age of Applicant(s):</label>
+            <div data-role="controlgroup" data-type="horizontal" style="display:inline-block;">
+              <select name="age1" id="age1">
+                <option value="20">0-20</option>
+                <option value="foo">foo</option>
+                <option value="65">65+</option>
+              </select>
+              <span id="aged2" style="display:none;">
+                <select name="age2" id="age2">
+                  <option value="20">0-20</option>
+                  <option value="foo">foo</option>
+                  <option value="65">65+</option>
+                </select>
+              </span>
+              <span id="aged3" style="display:none;">
+                <select name="age3" id="age3">
+                  <option value="20">0-20</option>
+                  <option value="foo">foo</option>
+                  <option value="65">65+</option>
+                </select>
+              </span>
+              <span id="aged4" style="display:none;">
+                <select name="age4" id="age4">
+                  <option value="20">0-20</option>
+                  <option value="foo">foo</option>
+                  <option value="65">65+</option>
+                </select>
+              </span>
+              <span id="aged5" style="display:none;">
+                <select name="age5" id="age5">
+                  <option value="20">0-20</option>
+                  <option value="foo">foo</option>
+                  <option value="65">65+</option>
+                </select>
+              </span>
+              <span id="aged6" style="display:none;">
+                <select name="age6" id="age6">
+                  <option value="20">0-20</option>
+                  <option value="foo">foo</option>
+                  <option value="65">65+</option>
+                </select>
+              </span>
+              <span id="aged7" style="display:none;">
+                <select name="age7" id="age7">
+                  <option value="20">0-20</option>
+                  <option value="foo">foo</option>
+                  <option value="65">65+</option>
+                </select>
+              </span>
+              <span id="aged8" style="display:none;">
+                <select name="age8" id="age8">
+                  <option value="20">0-20</option>
+                  <option value="foo">foo</option>
+                  <option value="65">65+</option>
+                </select>
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div data-role="content">
+      <div style="margin:auto;width:100%;">
+        <h2>My Policy Options</h2>
+        <div class="plcy">
+          <ul data-role="listview" data-inset="true" data-split-icon="search" data-split-theme="e">
+            <li data-role="list-divider">Preferred Plan</li>
+            <li>Deductible<span class="ui-li-count" id="ddctbl">$0</span></li>
+            <li>Max OOP<span class="ui-li-count" id="oopmx">$0</span></li>
+            <li>Co-Insurance<span class="ui-li-count" id="cnsrnc">$0</span></li>
+            <li>Office Visit<span class="ui-li-count" id="ov">$0</span></li>
+            <li>RX Copays<span class="ui-li-count" id="rx">$0 / $0</span></li>
+            <li>
+              <a href="#">Premium<span class="ui-li-count" id="prmm">$0</span></a>
+              <a href="#bnft" data-rel="popup" data-position-to="window" data-transition="pop">Benefit</a>
+            </li>
+          </ul>
+          <ul data-role="listview" data-inset="true">
+            <li data-theme="a" style="padding:4%;">Total OOP<span class="ui-li-count" id="oop-prmm">$0</span></li>
+            <li data-theme="a" style="padding:4%;">Difference<span class="ui-li-count" id="oop-dffrnc">+$0</span></li>
+          </ul>
+        </div>
+        <div class="plcy">
+          <ul data-role="listview" data-inset="true" data-split-icon="search" data-split-theme="e">
+            <li data-role="list-divider">Enhanced Plan</li>
+            <li>Deductible<span class="ui-li-count" id="ddctbl">$0</span></li>
+            <li>Max OOP<span class="ui-li-count" id="oopmx">$0</span></li>
+            <li>Co-Insurance<span class="ui-li-count" id="cnsrnc">$0</span></li>
+            <li>Office Visit<span class="ui-li-count" id="ov">$0</span></li>
+            <li>RX Copays<span class="ui-li-count" id="rx">$0 / $0</span></li>
+            <li>
+              <a href="#">Premium<span class="ui-li-count" id="prmm">$0</span></a>
+              <a href="#bnft" data-rel="popup" data-position-to="window" data-transition="pop">Benefit</a>
+            </li>
+          </ul>
+          <ul data-role="listview" data-inset="true">
+            <li data-theme="a" style="padding:4%;">Total OOP<span class="ui-li-count" id="oop-prmm">$0</span></li>
+            <li data-theme="a" style="padding:4%;">Difference<span class="ui-li-count" id="oop-dffrnc">+$0</span></li>
+          </ul>
+        </div>
+        <div class="plcy">
+          <ul data-role="listview" data-inset="true" data-split-icon="search" data-split-theme="e">
+            <li data-role="list-divider">Basic Plan</li>
+            <li>Deductible<span class="ui-li-count" id="ddctbl">$0</span></li>
+            <li>Max OOP<span class="ui-li-count" id="oopmx">$0</span></li>
+            <li>Co-Insurance<span class="ui-li-count" id="cnsrnc">$0</span></li>
+            <li>Office Visit<span class="ui-li-count" id="ov">$0</span></li>
+            <li>RX Copays<span class="ui-li-count" id="rx">$0 / $0</span></li>
+            <li>
+              <a href="#">Premium<span class="ui-li-count" id="prmm">$0</span></a>
+              <a href="#bnft" data-rel="popup" data-position-to="window" data-transition="pop">Benefit</a>
+            </li>
+          </ul>
+          <ul data-role="listview" data-inset="true">
+            <li data-theme="a" style="padding:4%;">Total OOP<span class="ui-li-count" id="oop-prmm">$0</span></li>
+            <li data-theme="a" style="padding:4%;">Difference<span class="ui-li-count" id="oop-dffrnc">$0</span></li>
+          </ul>
+        </div>
+        <div class="plcy">
+          <ul data-role="listview" data-inset="true" data-split-icon="search" data-split-theme="e">
+            <li data-role="list-divider">Basic for HSA Plan</li>
+            <li>Deductible<span class="ui-li-count" id="ddctbl">$0</span></li>
+            <li>Max OOP<span class="ui-li-count" id="oopmx">$0</span></li>
+            <li>Co-Insurance<span class="ui-li-count" id="cnsrnc">$0</span></li>
+            <li>Office Visit<span class="ui-li-count" id="ov">$0</span></li>
+            <li>RX Copays<span class="ui-li-count" id="rx">$0 / $0</span></li>
+            <li>
+              <a href="#">Premium<span class="ui-li-count" id="prmm">$0</span></a>
+              <a href="#bnft" data-rel="popup" data-position-to="window" data-transition="pop">Benefit</a>
+            </li>
+          </ul>
+          <ul data-role="listview" data-inset="true">
+            <li data-theme="a" style="padding:4%;">Total OOP<span class="ui-li-count" id="oop-prmm">$0</span></li>
+            <li data-theme="a" style="padding:4%;">Difference<span class="ui-li-count" id="oop-dffrnc">-$0</span></li>
+          </ul>
+        </div>
+        <div class="plcy">
+          <ul data-role="listview" data-inset="true" data-split-icon="search" data-split-theme="e">
+            <li data-role="list-divider">Get Covered Plan</li>
+            <li>Deductible<span class="ui-li-count" id="ddctbl">$0</span></li>
+            <li>Max OOP<span class="ui-li-count" id="oopmx">$0</span></li>
+            <li>Co-Insurance<span class="ui-li-count" id="cnsrnc">$0</span></li>
+            <li>Office Visit<span class="ui-li-count" id="ov">$0</span></li>
+            <li>RX Copays<span class="ui-li-count" id="rx">$0 / $0</span></li>
+            <li>
+              <a href="#">Premium<span class="ui-li-count" id="prmm">$0</span></a>
+              <a href="#bnft" data-rel="popup" data-position-to="window" data-transition="pop">Benefit</a>
+            </li>
+          </ul>
+          <ul data-role="listview" data-inset="true">
+            <li data-theme="a" style="padding:4%;">Total OOP<span class="ui-li-count" id="oop-prmm">$0</span></li>
+            <li data-theme="a" style="padding:4%;">Difference<span class="ui-li-count" id="oop-dffrnc">-$0</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div data-role="popup" id="bnft" data-overlay-theme="a" class="ui-corner-all" style="height:200px;width:400px;padding:4%;">
+        <div data-role="header" data-theme="e" class="ui-corner-top"><h1>Benefits</h1></div>
+        <div data-role="content" class="ui-corner-bottom ui-content">foo</div>
+      </div>
+
+    </div>
+    <div data-role="footer" data-theme="d"><h5>Copyright Inovius, Inc. - Policy Decision Support</h5></div>
+  </div>
+</body>

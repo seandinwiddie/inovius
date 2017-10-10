@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, inital-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Inovius-Anthem</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <style>
+      .table-bordered,thead th,tfoot th,tfoot td{
+        border:none !important;
+      }
+
+      .jumbotron{
+        padding-top:2%;
+        background:white;
+      }
+      .jumbotron .input-group{
+        line-height:1;
+      }
+    </style>
+    <script>
+      a=1;
+      n=2;
+      $(document).ready(function(){
+        $("#applcnts").on("click",".applcntAdd",function(){
+          if(n<8){
+            $("#applcnt"+a++ +"").after(
+              "<div class='input-group input-group-lg applcnt' id='applcnt"+n+"' style='margin-bottom:4%;'>\
+                <span class='input-group-addon'>"+n++ +". </span>\
+                <input type='text' class='form-control' id='a"+a+"'>\
+                <div class='input-group-btn'>\
+                  <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'\
+                    style='border-top-right-radius:0;border-bottom-right-radius:0;margin-right:-4px;'\
+                  >Age\
+                    <span class='caret'></span>\
+                  </button>\
+                  <ul class='dropdown-menu' role='menu'>\
+                    <li><a href='#' id='a"+a+"-15'>15</a></li>\
+                    <li><a href='#' id='a"+a+"-41'>41</a></li>\
+                    <li><a href='#' id='a"+a+"-65'>65</a></li>\
+                  </ul>\
+                  <button type='button' class='btn btn-primary' style='padding:1%;'>\
+                    <span class='glyphicon glyphicon-plus applcntAdd' style='display:block;padding-top:6%;'></span>\
+                    <span class='glyphicon glyphicon-minus applcntRmv' style='padding-top:12%;margin-left:-12%;'></span>\
+                  </button>\
+                </div>\
+              </div>"
+            );
+          }
+        });
+        $("#applcnts").on("click",".applcntRmv",function(){
+          if($(this).parents(".applcnt").attr("id")=="applcnt"+(n-1)){
+            $(this).parents(".applcnt").remove();n--;a--;
+          }
+          else if($(this).parents(".applcnt").attr("id")=="applcnt"+(n-2)){
+            $(this).parents(".applcnt").remove();n--;a--;n--;a--;
+          }
+          else{
+            $(this).parents(".applcnt").remove();
+          }
+        });
+        $("#zp-96003").click(function(){$("#zp").val(96003);});
+        $("#applcnts").on("click","#a1-42",function(){$("#a1").val(42);$("table").show("slow");$("#cmpr").show("slow");});
+        $("#a1").change(function(){
+          if($("#a1").val()==42){$("table").show("slow");$("#cmpr").show("slow");}
+        });
+        $("#applcnts").on("click","#a2-41",function(){$("#a2").val(41);
+          $("#fOop1").text("$10,008.00");$("#fOop2").text("$9,366.36");$("#fOop3").text("$7,749.60");
+          $("#prm1").text("$834.00");$("#prm2").text("$780.53");$("#prm3").text("$645.80");
+          $("#oop1").text("$22,708.00");$("#oop2").text("$22,066.36");$("#oop3").text("$20,449.60");
+          $("#tOop1").text("+$641.64");$("#tOop2").text("$0.00");$("#tOop3").text("-$1,616.76");
+        });
+        $("#applcnts").on("change","#a2",function(){
+          if($("#a2").val()==41){
+            $("#fOop1").text("$10,008.00");$("#fOop2").text("$9,366.36");$("#fOop3").text("$7,749.60");
+            $("#prm1").text("$834.00");$("#prm2").text("$780.53");$("#prm3").text("$645.80");
+            $("#oop1").text("$22,708.00");$("#oop2").text("$22,066.36");$("#oop3").text("$20,449.60");
+            $("#tOop1").text("+$641.64");$("#tOop2").text("$0.00");$("#tOop3").text("-$1,616.76");
+          }
+        });
+        $("#applcnts").on("click","#a3-15",function(){$("#a3").val(15);});
+        $("#applcnts").on("click","#a4-65",function(){$("#a4").val(65);});
+        $("#applcnts").on("click","#a5-65",function(){$("#a5").val(65);});
+        $("#applcnts").on("click","#a6-65",function(){$("#a6").val(65);});
+        $("#applcnts").on("click","#a7-65",function(){$("#a7").val(65);});
+      });
+    </script>
+  </head>
+  <body>
+    <div class="jumbotron">
+      <div class="container">
+        <div class="col-md-3" style="max-width:235px;">
+          <img src="anthem_blue_cross.jpg" width="100%">
+          <br><br>
+          <div class="input-group input-group-lg">
+            <input type="text" class="form-control" id="zp">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Zip <span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#" id="zp-96003">96003</a></li>
+              </ul>
+            </div>
+          </div>
+          <p style="margin-top:8%;">Applicants:</p>
+          <div id="applcnts" style="height:380px;">
+            <div class="input-group input-group-lg" id="applcnt1" style="margin-bottom:4%;">
+              <span class="input-group-addon">1. </span>
+              <input type="text" class="form-control" id="a1">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                  style="border-top-right-radius:0;border-bottom-right-radius:0;margin-right:-4px;"
+                >Age
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#" id="a1-42">42</a></li>
+                </ul>
+                <button type="button" class="btn btn-primary applcntAdd" style="padding:1%;">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-primary btn-lg"
+            id="cmpr"
+            style="display:none;min-height:45px;min-width:107px;"
+            data-toggle="modal"
+            data-target="#cmpBx"
+          >Compare</button>
+
+          <div class="modal" id="cmpBx" tabindex="-1" role="dialog">
+            <div class="modal-dialog" style="padding-top:308px;min-width:680px;">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="cmpBxLabel">Compare</h4>
+                </div>
+                <div class="modal-body">
+                  <table class="table">
+                    <tr>
+                      <th></th>
+                      <th>Gold 80</th>
+                      <th>Silver 70</th>
+                      <th>Bronze 60</th>
+                    <tr>
+                    <tr>
+                      <th>Total OOP Difference</th>
+                      <td id="tOop1">+$1,077.00</td>
+                      <td id="tOop2">$0.00</td>
+                      <td id="tOop3">-$1,055.16</td>
+                    <tr>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-9">
+          <table class="table table-bordered table-striped table-hover" style="min-width:680px;max-width:680px;display:none;">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Gold 80</th>
+                <th>Silver 70</th>
+                <th>Bronze 60</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Individual Deductible</th>
+                <td id="iDdctbl1">No Deductible</td>
+                <td id="iDdctbl2">$2,000</td>
+                <td id="iDdctbl3">$5,000</td>
+              </tr>
+              <tr>
+                <th>Family Deductible</th>
+                <td id="fDdctbl1">No Deductible</td>
+                <td id="fDdctbl2">$4,000</td>
+                <td id="fDdctbl3"></td>
+              </tr>
+              <tr>
+                <th>Max OOP for One</th>
+                <td id="iOop1">$6,350</td>
+                <td id="iOop2">$6,350</td>
+                <td id="iOop3">$6,350</td>
+              </tr>
+              <tr>
+                <th>Max OOP for Family</th>
+                <td id="fOop1">$12,700</td>
+                <td id="fOop2">$12,700</td>
+                <td id="fOop3">$12,700</td>
+              </tr>
+              <tr>
+                <th>Primary Care Visit Copay</th>
+                <td id="pcv1">$30</td>
+                <td id="pcv2">$45</td>
+                <td id="pcv3">$60</td>
+              </tr>
+              <tr>
+                <th>Lab Testing Copay</th>
+                <td id="lt1">$30</td>
+                <td id="lt2">$45</td>
+                <td id="lt3">30%</td>
+              </tr>
+              <tr>
+                <th>X-Ray Copay</th>
+                <td id="xr1">$50</td>
+                <td id="xr2">$65</td>
+                <td id="xr3">30%</td>
+              </tr>
+              <tr>
+                <th>Emergency Room Copay</th>
+                <td id="er1">$250</td>
+                <td id="er2">$250</td>
+                <td id="er3">$150</td>
+              </tr>
+              <tr>
+                <th>Generic Copay RX</th>
+                <td id="gRx1">$19</td>
+                <td id="gRx2">$19</td>
+                <td id="gRx3">$5</td>
+              </tr>
+              <tr>
+                <th>Brand Copay RX</th>
+                <td id="bRx1">$50</td>
+                <td id="bRx2">$50</td>
+                <td id="bRx3">$15</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th>Monthly Premium</th>
+                <td id="prm1">$595.25</td>
+                <td id="prm2">$505.50</td>
+                <td id="prm3">$417.57</td>
+              </tr>
+              <tr>
+                <th>Total Out of Pocket</th>
+                <td id="oop1">$13,493.00</td>
+                <td id="oop2">$12,416.00</td>
+                <td id="oop3">$11,360.84</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>HSA Future Cost</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <script src="autoNumeric.js"></script>
+    <!--[if lt IE 9]><script src="excanvas.min.js"></script><![endif]-->
+    <script src="jquery.flot.min.js"></script>
+    <script src="curvedLines.js"></script>
+    <script src="jquery.knob.js"></script>
+    <script>
+      $(function(){$("#tpmp,#hpmp,#mhc").autoNumeric("init",{aSign:"$"});});
+      $(function(){$("#tppt,#hppt").autoNumeric("init",{aSign:"%",pSign:"s",vMin:"-99.0",vMax:"99.9"});});
+      function clclt(){
+        tpp=$("#tpmp").autoNumeric("get")*12;tpt=$("#tppt").autoNumeric("get")/100;
+        hpp=$("#hpmp").autoNumeric("get")*12;hpt=$("#hppt").autoNumeric("get")/100;
+        yr=$("#yrs").val();hc=($("#mhc").autoNumeric("get")*12)*yr;
+        if(tpt==0){tpp=tpp*yr;}else{tpp=tpp*((Math.pow(1+tpt,yr)-1)/tpt);}
+        if(hpt==0){hpp=(hpp*yr)+hc;}else{hpp=(hpp*((Math.pow(1+hpt,yr)-1)/hpt))+hc;}
+        svng="$"+(tpp-hpp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,"$1,");
+        $("#svngs").text(svng);
+        d1=[[1,$("#tpmp").autoNumeric("get")*12],[yr,tpp]];
+        d2=[[1,$("#hpmp").autoNumeric("get")*12],[yr,hpp]];
+        $.plot($("#chrt"),[
+          {color:"LightBlue",data:d1,lines:{lineWidth:5,fill:true},curvedLines:{apply:true}},
+          {color:"Orange",data:d2,lines:{lineWidth:5,fill:true},curvedLines:{apply:true}}
+        ],{
+          series:{shadowSize:0,curvedLines:{active:true}},
+          xaxis:{max:yr},
+          yaxis:{max:(tpp+hpp)},
+          grid:{show:true}
+        });
+      }
+      $(document).ready(function(){
+        clclt();$("input").change(function(){clclt();});
+
+        var t_v,t_up=0,t_down=0,t_i=12.0,$t_ival=$("#tppt"),t_incr=function(){t_i++;$t_ival.autoNumeric("set",t_i);},t_decr=function(){t_i--;$t_ival.autoNumeric("set",t_i);};
+        $("#tpptKnb").knob({width:50,height:50,cursor:50,draw:function(){
+          if(t_v>this.cv){if(t_up){t_decr();t_up=0;}else{t_up=1;t_down=0;}}
+          else{if(t_v<this.cv){if(t_down){t_incr();t_down=0;}else{t_down=1;t_up=0;}}}
+          t_v=this.cv;
+          clclt();
+        }});
+
+        var v,up=0,down=0,i=12.0,$ival=$("#hppt"),incr=function(){i++;$ival.autoNumeric("set",i);},decr=function(){i--;$ival.autoNumeric("set",i);};
+        $("#hpptKnb").knob({width:50,height:50,cursor:50,fgColor:"Orange",draw:function(){
+          if(v>this.cv){if(up){decr();up=0;}else{up=1;down=0;}}
+          else{if(v<this.cv){if(down){incr();down=0;}else{down=1;up=0;}}}
+          v=this.cv;
+          clclt();
+        }});
+
+      });
+    </script>
+    <style>html{line-height:50%;}*{text-align:center;font-size:97% !important;font-family:sans-serif;letter-spacing:1px;word-spacing:1px;}.dllr{margin:auto !important;border:1px solid black !important;width:33% !important;} .ui-slider-track{margin:0 2%;border:1px solid black;}.ui-slider-handle{background:black;} #svngs{font-weight:bold;}</style>
+  </head>
+  <body>
+    <div class="ui-grid-a">
+      <div class="ui-block-a" style="width:25%;">
+        <div data-role="content">
+          <p>Traditional Plan</p>
+          <p>Monthly Premium</p>
+          <input class="dllr" id="tpmp" value="858">
+          <br>
+          <p>Traditional Plan</p>
+          <p>Premium Trend</p>
+          <div class="ui-grid-b">
+            <div class="ui-block-a"></div>
+            <div class="ui-block-b">
+              <div id="tpptKnb"></div>
+            </div>
+            <div class="ui-block-c">
+              <input id="tppt" value="12.0">
+            </div>
+          </div>
+          <br>
+          <p>HSA-Eligible Plan</p>
+          <p>Monthly Premium</p>
+          <input class="dllr" id="hpmp" value="357">
+          <br>
+          <p>Monthly HSA Contributions</p>
+          <input class="dllr" id="mhc" value="0.00">
+          <br>
+          <p>HSA-Eligible Plan</p>
+          <p>Premium Trend</p>
+          <div class="ui-grid-b">
+            <div class="ui-block-a"></div>
+            <div class="ui-block-b">
+              <div id="hpptKnb"></div>
+            </div>
+            <div class="ui-block-c">
+              <input id="hppt" value="4.0">
+            </div>
+          </div>
+          <br>
+          <p>Projected Savings</p>
+          <p>of HSA-Eligible</p>
+          <p>Plan over</p>
+          <div class="ui-grid-b">
+            <div class="ui-block-a"></div>
+            <div class="ui-block-b">
+              <input id="yrs" style="width:100% !important;" value="7">
+            </div>
+            <div class="ui-block-c">
+              <p style="margin-top:15%;">Years</p>
+            </div>
+          </div>
+          <br>
+          <p id="svngs">$0</p>
+        </div>
+      </div>
+      <div class="ui-block-b" style="width:75%;padding-top:3%;">
+        <div id="chrt" style="height:600px;width:95%;"></div>
+        <p><span style="height:10px;width:10px;color:lightblue;background:lightblue;">.</span>Traditional Plan <span style="height:10px;width:10px;color:orange;background:orange;">.</span>HSA-Eligible Plan</p>
+      </div>
+    </div>
+  </body>
+</html>
